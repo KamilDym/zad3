@@ -29,7 +29,7 @@ public class AnimalService : IAnimalService
 
     public bool AddNewAnimal(CreateAnimalDto dto)
     {
-        return _animalRepository.CreateNewAnimal(dto.Name,dto.Description,dto.Category,dto.Area);
+        return _animalRepository.CreateNewAnimal(dto.Name, dto.Description, dto.Category, dto.Area);
     }
 
     public bool Exist(int idAnimal)
@@ -39,16 +39,11 @@ public class AnimalService : IAnimalService
 
     public bool UpdateAnimal(int idAnimal, CreateAnimalDto animal)
     {
-        return _animalRepository.UpdateAnimal(idAnimal,animal.Name,animal.Description,animal.Category,animal.Area);
+        return _animalRepository.UpdateAnimal(idAnimal, animal.Name, animal.Description, animal.Category, animal.Area);
     }
 
     public bool DeleteAnimal(int id)
     {
         return _animalRepository.DeleteAnimal(id);
     }
-
-    // public bool UpdateAnimal(int id)
-    // {
-    //     return _animalRepository.UpdateAnimal(id);
-    // }
 }

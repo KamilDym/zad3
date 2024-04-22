@@ -30,11 +30,10 @@ public class AnimalsController : ControllerBase
         var success = _animalService.AddNewAnimal(dto);
         return success ? StatusCode(StatusCodes.Status201Created) : Conflict();
     }
-    
-    [HttpPut("{idAnimal:int}")]
-    public IActionResult UpdateAnimal([FromRoute]int idAnimal, CreateAnimalDto animal)
-    {
 
+    [HttpPut("{idAnimal:int}")]
+    public IActionResult UpdateAnimal([FromRoute] int idAnimal, CreateAnimalDto animal)
+    {
         if (!ModelState.IsValid)
         {
             return BadRequest($"Incomplete data");
@@ -42,18 +41,17 @@ public class AnimalsController : ControllerBase
 
         if (_animalService.Exist(idAnimal))
         {
-            _animalService.UpdateAnimal(idAnimal,animal);
-            
+            _animalService.UpdateAnimal(idAnimal, animal);
         }
         else
         {
             return NotFound();
         }
-        
+
         return Ok(animal);
     }
 
-    [HttpDelete("{idAnimal}")]
+    [HttpDelete("{idAnimal:int}")]
     public IActionResult DeleteAnimal([FromRoute] int idAnimal)
     {
         var success = _animalService.DeleteAnimal(idAnimal);

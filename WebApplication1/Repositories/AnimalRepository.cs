@@ -48,35 +48,38 @@ public class AnimalRepository : IAnimalRepository
 
         return animals;
     }
-    
+
 
     public bool CreateNewAnimal(string name, string description, string category, string area)
     {
         using var connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]);
         connection.Open();
-        
-        var command = new SqlCommand($"INSERT INTO Animal (Name,Description,Category,Area) VALUES (@name,@description,@category,@area)", connection);
-        command.Parameters.AddWithValue("@name",name);
-        command.Parameters.AddWithValue("@description",description);
-        command.Parameters.AddWithValue("@category",category);
-        command.Parameters.AddWithValue("@area",area);
+
+        var command =
+            new SqlCommand(
+                $"INSERT INTO Animal (Name,Description,Category,Area) VALUES (@name,@description,@category,@area)",
+                connection);
+        command.Parameters.AddWithValue("@name", name);
+        command.Parameters.AddWithValue("@description", description);
+        command.Parameters.AddWithValue("@category", category);
+        command.Parameters.AddWithValue("@area", area);
         var affectedRows = command.ExecuteNonQuery();
         return affectedRows == 1;
-
     }
 
     public bool Exist(int idAnimal)
     {
         using var connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]);
         connection.Open();
-        
-        var command = new SqlCommand($"SELECT IdAnimal FROM Animal WHERE IdAnimal = @idAnimal",connection);
+
+        var command = new SqlCommand($"SELECT IdAnimal FROM Animal WHERE IdAnimal = @idAnimal", connection);
         command.Parameters.AddWithValue("@idAnimal", idAnimal);
         using var reader = command.ExecuteReader();
         if (reader.HasRows)
         {
             return true;
         }
+
         return false;
     }
 
@@ -84,7 +87,7 @@ public class AnimalRepository : IAnimalRepository
     {
         using var connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]);
         connection.Open();
-        var command = new SqlCommand($"DELETE FROM Animal WHERE IdAnimal = {id}",connection);
+        var command = new SqlCommand($"DELETE FROM Animal WHERE IdAnimal = {id}", connection);
         var affectedRows = command.ExecuteNonQuery();
         return affectedRows == 1;
     }
@@ -94,14 +97,15 @@ public class AnimalRepository : IAnimalRepository
         using var connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]);
         connection.Open();
         //@name,@description,@category,@area
-        var command = new SqlCommand($"UPDATE Animal SET Name = @name, Description = @description ,Category = @category, Area = @area WHERE IdAnimal = {id}",connection);
-        command.Parameters.AddWithValue("@name",name);
-        command.Parameters.AddWithValue("@description",description);
-        command.Parameters.AddWithValue("@category",category);
-        command.Parameters.AddWithValue("@area",area);
+        var command =
+            new SqlCommand(
+                $"UPDATE Animal SET Name = @name, Description = @description ,Category = @category, Area = @area WHERE IdAnimal = {id}",
+                connection);
+        command.Parameters.AddWithValue("@name", name);
+        command.Parameters.AddWithValue("@description", description);
+        command.Parameters.AddWithValue("@category", category);
+        command.Parameters.AddWithValue("@area", area);
         var affectedRows = command.ExecuteNonQuery();
         return affectedRows == 1;
     }
-
-   
 }
