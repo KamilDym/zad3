@@ -1,6 +1,8 @@
 // Container with services and dependecies
 
 using WebApplication1.Animals;
+using WebApplication1.Repositories;
+using WebApplication1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
